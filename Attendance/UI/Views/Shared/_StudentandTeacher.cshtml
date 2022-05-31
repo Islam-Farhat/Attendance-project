@@ -1,0 +1,89 @@
+﻿<div id="show" class="h-100 col-lg-3 col-md-4 text-center p-0 overflow-hidden d-md-block text-white border-right col-sm-12">
+        <nav class="nav navbar-expand-md navbar-light bg-light">
+            <button class="navbar-toggler w-100" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> Panel
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown2">
+
+                <div class="row">
+                    <form action="" class="col-12 py-2 shadow-lg text-center w-100 bg-dark px-4">
+                        <h2 class="my-3"><span class="text-danger" style="font-size: 40px;">S</span>tudent <span class="text-danger">l</span>ogin</h2>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group justify-content-center">
+                            <button type="submit" class="btn btn-primary w-100 ">Login</button>
+                        </div>
+                    </form>
+                    <div class="w-100 border-bottom border-primary"></div>
+                    <form action="" class="py-2 col-12 shadow-lg text-center w-100 bg-dark px-4">
+                        <h2 class="my-3"><span class="text-danger" style="font-size: 40px;">T</span>eacher <span class="text-danger">l</span>ogin</h2>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Enter name" id="TeacherLoginName">
+                            <p style="text-align:center;color:white;font-family:Arial;" id="validteacheremail">Teacher Email is Required!</p>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" id="TeacherLoginPassword">
+                            <p style="text-align:center;color:white;font-family:Arial;" id="validteacherpassword">Password is Required!</p>
+                            <p style="text-align:center;color:white;font-family:Arial;" id="validteachererorr">Wrong Password or TeacherName !</p>
+                            <input type="hidden" id="txthideteacher" />
+                        </div>
+                        <div class="form-group justify-content-center">
+                            <button type="button" class="btn btn-primary w-100 " id="btnLoginTeacher">Login</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- import your sidebar here (sidebar.forms.html,admin.sidebar.html,stuff.sidebar.html) -->
+                <!-- end of side bar importing -->
+            </div>
+        </nav>
+
+    </div>
+<script>
+
+    $(document).ready(function () {
+        $('#validteacheremail').hide();
+        $('#validteacherpassword').hide();
+        $('#validteachererorr').hide();
+        $('#btnLoginTeacher').click(function () {
+            LoginTeacher();
+        })
+    })
+
+    //Login Teacher to update his profile
+    function LoginTeacher() {
+        var name = $('#TeacherLoginName').val();
+        var password = $('#TeacherLoginPassword').val();
+        $.ajax({
+            url: "/AdminLogin/LoginTeacher?Email=" + name + "&Password=" + password,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (name == "" || name == undefined) {
+                    $('#validteacheremail').slideDown().delay(2000).slideUp(1000);
+                }
+                else if (password == "" || password == undefined) {
+                    $('#validteacherpassword').slideDown().delay(2000).slideUp(1000);
+                }
+                else {
+                    if (result != "error") {
+                        $('#TeacherLoginName').val("");
+                        $('#txthideteacher').val(name);
+                        //UpdateTeacher();
+                        window.location = "/AdminLogin/TeacherProfile?id=" + result;
+                }
+                else {
+                     $('#validteachererorr').slideDown(500).delay(2000).slideUp(1000);
+                }
+              }
+
+            }
+        });
+    } 
+
+</script>

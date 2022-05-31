@@ -1,0 +1,30 @@
+﻿@{
+     
+    int logeedId = 0;
+    if (ViewBag.id != null)
+    {
+        logeedId = ViewBag.id;
+    }
+}
+<div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown2">
+    <!-- import your sidebar here (sidebar.forms.html,admin.sidebar.html,stuff.sidebar.html) -->
+    <!-- end of side bar importing -->
+
+    <div class="list-group text-center flex-column w-100 shadow-lg border-right border-danger">
+        <input type="hidden" value="@ViewBag.id" id="hdnTeacherID" />
+        <h3 class="py-3 alert-danger m-0">Teacher panel</h3>
+        <img src="smartphone-png-17251.png" class="my-3 shadow col-6 offset-3 border-danger border" alt="">
+        <h5 class="text-center lead text-danger font-weight-bold text-capitalize" id="1"></h5>
+        <a href="/AdminLogin/" class="list-group-item list-group-item-action" id="list-home-list" @*data-toggle="list"*@>Home </a>
+        <a href="/AdminLogin/Student?teacherid=@logeedId" class="list-group-item list-group-item-action" id="list-home-list" @*data-toggle="list"*@>Add student</a>
+        <a href="/AdminLogin/StudentReports?teacherid=@logeedId" class="list-group-item list-group-item-action" id="list-home-list" @*data-toggle="list"*@>Student reports</a>
+        <a href="/AdminLogin/Attendance?teacherid=@logeedId" class="list-group-item list-group-item-action" id="list-home-list" @*data-toggle="list"*@>Attendance</a>
+        <a href="/AdminLogin/AttendanceReport" class="list-group-item list-group-item-action" id="list-home-list" >Attendance report</a>
+        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Advance report</a>
+        <a href="/AdminLogin/AdvancedAttendaceReport" class="list-group-item list-group-item-action" id="list-home-list" @*data-toggle="list"*@>Advance Att Reports</a>
+        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Complain</a>
+        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Leave</a>
+        <a href="/AdminLogin/UpdataPasswordTeacher?teacherid=@logeedId" class="list-group-item list-group-item-action" id="list-home-list" @*data-toggle="list"*@>Password</a>
+        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Log out</a>
+    </div>
+</div>

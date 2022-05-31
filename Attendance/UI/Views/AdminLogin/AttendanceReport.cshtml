@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "AttendanceReport";
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script defer src="../js/js.js"></script>
+    <!--  CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>learning platform</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="show" class="h-100 col-lg-3 col-md-4 text-center p-0 overflow-hidden d-md-block text-white border-right col-sm-12">
+                <nav class="nav navbar-expand-md navbar-light bg-light">
+                    <button class="navbar-toggler w-100" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span> Panel
+                    </button>
+                    <!--SideBar using partailview-->
+                    @Html.Partial("_SideBarTeacherPanal")
+                </nav>
+
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12 justify-content-center">
+                <div id="content" class="container text-center col-12 overflow-auto">
+                    <!-- content .... import content here(homepage.html,feedback.html,adminlogin.html and any component)-->
+                    <!-- end content -->
+
+                    <div class="p-4 border my-5 shadow">
+                        <h3 class="text-danger my-3 ">Attendance reports</h3>
+                        <div class="row my-3">
+                            <div class="col-lg-6 my-3 offset-lg-3 border p-3 text-center">
+                                <h5>Select Level:</h5>
+                                <select class="form-control my-2" id="ddllevelAdvancedReport">
+                                    @*<option value="0" selected>Select standard</option>
+                                    <option value="1">1st std</option>
+                                    <option value="2">2nd std</option>*@
+                                </select>
+                                <h5>Select Class:</h5>
+                                <select class="form-control my-2"id="ddlClassAdvancedReport">
+                                    @*<option value="0" selected>Select Division</option>
+                                    <option value="1">A6Y54</option>
+                                    <option value="2">B5G46</option>*@
+                                </select>
+                                <h5>Select date</h5>
+                                <input type="date" class="form-control" name="" id="txtdateadvancedReport">
+                                <input type="button" class="btn btn-danger my-3 w-50"value="Select" id="btnAdvancedReport"/>
+                                <h3 class="text-primary my-3 ">Results: <span id="e">5</span></h3>
+                            </div>
+                            <table class="table overflow-hidden border">
+                                <thead class="text-white bg-danger">
+                                    <tr>
+                                        <th scope="col border">#</th>
+                                        <th scope="col border">Student name</th>
+                                        <th scope="col border">Attendance</th>
+                                        <th scope="col border">Attendance by</th>
+                                        <th scope="col border">Attendance date</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="tbodyAdvancedReport">
+                                    
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <footer class="card-footer bg-dark text-white text-center fixed-bottom">
+        Designer/Magdy Elsayyad
+    </footer>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../js/jquery.slim.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>
+
+<script>
+    $(document).ready(function () {
+
+        DropdownlistLevel();
+        DropdownlistClass();
+        $('#btnAdvancedReport').click(function () {
+            loadData();
+        })
+    })
+
+    //load data level in dropdownlist
+    function DropdownlistLevel() {
+        $.ajax({
+            url: "/AdminLogin/DropdownlistLevelStudent",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html += '<option value=-1>Select Level</option>'
+                $.each(result, function (key, item) {
+                    html += '<option value=' + item.LevelID + '>';
+                    html += item.LevelName + '</option>';
+                });
+                $('#ddllevelAdvancedReport').html(html);
+            }
+        });
+    }
+
+    //load data classes in dropdownlist
+    function DropdownlistClass() {
+        $.ajax({
+            url: "/AdminLogin/DropdownlistClassStudent",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html += '<option value=-1>Select Class</option>'
+                $.each(result, function (key, item) {
+                    html += '<option value=' + item.ClassID + '>';
+                    html += item.ClassName + '</option>';
+                });
+                $('#ddlClassAdvancedReport').html(html);
+            }
+        });
+    }
+
+    //Load Data function in Table
+    function loadData() {
+        var droplevel = $('#ddllevelAdvancedReport').val();
+        var dropclass = $('#ddlClassAdvancedReport').val();
+        var date = $('#txtdateadvancedReport').val();
+        $.ajax({
+            url: "/AdminLogin/LoadDataAttendanceReport?LevelID=" + droplevel + "&ClassID=" + dropclass + "&AttendanceDate=" + date,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) { 
+                var html = '';
+                var i = 1;
+                $.each(result, function (key, item) {
+                    html += '<tr>';
+                    html += '<td>' + i++ + '</td>';
+                    html += '<td>' + item.StudentName + '</td>';
+                    html += '<td>' + item.Attendance + '</td>';
+                    html += '<td>' + item.TeacherName + '</td>';
+                    html += '<td>' + item.AttendanceDate + '</td>';
+                    html += '</tr>';
+                });
+                $('#e').text(i - 1);
+                $('.tbodyAdvancedReport').html(html);
+            }
+        });
+    } 
+</script>

@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewBag.Title = "AdvancedReport";
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script defer src="../js/js.js"></script>
+    <!--  CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>learning platform</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="show" class="h-100 col-lg-3 col-md-4 text-center p-0 overflow-hidden d-md-block text-white border-right col-sm-12">
+                <nav class="nav navbar-expand-md navbar-light bg-light">
+                    <button class="navbar-toggler w-100" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span> Panel
+                    </button>
+                    <!--SideBar using partailview-->
+                    @Html.Partial("_SideBarTeacherPanal")
+                </nav>
+
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12 justify-content-center">
+                <div id="content" class="container text-center col-12 overflow-auto">
+                    <!-- content .... import content here(homepage.html,feedback.html,adminlogin.html and any component)-->
+                    <!-- end content -->
+
+
+                    <div class="col-lg-10 offset-lg-1 shadow p-4">
+                        <h3 class="text-danger my-3">Advance reports</h3>
+                        <div class="row justify-content-center">
+                            <select class="form-control my-2 mx-1 col-lg-3" id="ddllevelAdvReport">
+                                @*<option value="0" selected>Select standard</option>
+                                    <option value="1">1st std</option>
+                                    <option value="2">2nd std</option>*@
+                            </select>
+                            <select class="form-control my-2 mx-1 col-lg-3" id="ddlclassAdvReport">
+                                @*<option value="0" selected>Select Division</option>
+                                    <option value="1">A6Y54</option>
+                                    <option value="2">B5G46</option>*@
+                            </select>
+                            <select class="form-control my-2 col-lg-3" id="ddlStudentAdvReport">
+                                @*<option value="0" selected>Select Student</option>
+                                    <option value="1">A6Y54</option>
+                                    <option value="2">B5G46</option>*@
+                            </select>
+                            <input type="button" id="btnselectAdvReport" class="btn btn-danger my-3 col-lg-6"value="Select"/>
+                        </div>
+                        <div class="card  py-3">
+                            <div style="margin-right:180px" id="imgStudemt">
+
+                            </div>
+                            @*<img src="smartphone-png-17251.png" class="col-4 offset-4  border border-danger" class="card-img-top" alt="Student photo">*@
+                            <div class="card-body">
+                                <h5 class="card-title text-center text-capitalize" id="txtNAstudent">Student Name</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item lead text-left"><span class="text-danger ">Email:</span><span id="txtEMstudent"></span> </li>
+                                <li class="list-group-item lead text-left" ><span class="text-danger ">Mobile:</span> <span id="txtMostudent"></span></li>
+                                <li class="list-group-item lead text-left"><span class="text-danger ">BirthDate:</span> <span id="txtBistudet"></span></li>
+                                <li class="list-group-item lead text-left"><span class="text-danger ">Address:</span> <span id="txtADDstudent"></span></li>
+                                <li class="list-group-item lead text-left"><span class="text-danger ">City:</span> <span id="txtCIstudent"></span></li>
+                                <li class="list-group-item lead text-left"><span class="text-danger ">Username:</span> <span id="txtUSstudent"></span></li>
+                                <li class="list-group-item lead text-left"><span class="text-danger ">Password:</span> <span id="txtPAstudent"></span></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <footer class="card-footer bg-dark text-white text-center fixed-bottom">
+        Designer/Magdy Elsayyad
+    </footer>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../js/jquery.slim.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>
+<script>
+    $(document).ready(function () {
+
+        DropdownlistLevel();
+        DropdownlistClass();
+        DropdownlistStudent();
+        $('#ddllevelAdvReport').change(function () {
+            ReloadDropdownlistStudent();
+        })
+        $('#ddlclassAdvReport').change(function () {
+            ReloadDropdownlistStudent();
+        })
+        $('#btnselectAdvReport').click(function () {
+            loadData();
+        })
+
+    })
+
+    //loadData level in dropdownlist
+    function DropdownlistLevel() {
+        $.ajax({
+            url: "/AdminLogin/DropdownlistLevelAdvancedAttendaceReport",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html += '<option value=-1>Select Level</option>'
+                $.each(result, function (key, item) {
+                    html += '<option value=' + item.LevelID + '>';
+                    html += item.LevelName + '</option>';
+                });
+                $('#ddllevelAdvReport').html(html);
+            }
+        });
+    }
+
+    //loadData classes in dropdownlist
+    function DropdownlistClass() {
+        $.ajax({
+            url: "/AdminLogin/DropdownlistClassAdvancedAttendaceReport",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html += '<option value=-1>Select Class</option>'
+                $.each(result, function (key, item) {
+                    html += '<option value=' + item.ClassID + '>';
+                    html += item.ClassName + '</option>';
+                });
+                $('#ddlclassAdvReport').html(html);
+            }
+        });
+    }
+
+    //loadData Students in dropdownlist
+    function DropdownlistStudent() {
+        $.ajax({
+            url: "/AdminLogin/DropdownlistStudentAdvancedAttendaceReport",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html += '<option value=-1>Select Student</option>'
+                $.each(result, function (key, item) {
+                    html += '<option value=' + item.StudentID + '>';
+                    html += item.StudentName + '</option>';
+                });
+                $('#ddlStudentAdvReport').html(html);
+            }
+        });
+    }
+    //loadData Students in dropdownlist
+    function ReloadDropdownlistStudent() {
+        var droplevel = $('#ddllevelAdvReport').val();
+        var dropclass = $('#ddlclassAdvReport').val();
+        //var dropstudent = $('#ddlstudentadvancedattendencereport').val();
+        $.ajax({
+            url: "/AdminLogin/ReloadDropdownlistStudentAdvancedAttendaceReport?LevelID=" + droplevel + "&ClassID=" + dropclass,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html += '<option value=-1>Select Student</option>'
+                $.each(result, function (key, item) {
+                    html += '<option value=' + item.StudentID + '>';
+                    html += item.StudentName + '</option>';
+                });
+                $('#ddlStudentAdvReport').html(html);
+            }
+        });
+    }
+
+    //Load Data function in Table
+    function loadData() {
+        var droplevel = $('#ddllevelAdvReport').val();
+        var dropclass = $('#ddlclassAdvReport').val();
+        var dropstudent = $('#ddlStudentAdvReport').val();
+        //if (dropstudent != -1) {
+        //    if (droplevel == -1 || dropclass == -1) {
+        //        alert("Empty1")
+        //    }
+       // }
+        //else {
+            $.ajax({
+                url: "/AdminLogin/LoadDataAdvReport?LevelID=" + droplevel + "&ClassID=" + dropclass + "&StudentID=" + dropstudent,
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#imgStudemt').html('<img src="/Files/' + result.Photo + '" class="col-4 offset-4  border border-danger" class="card-img-top" alt="Student photo"  />')
+                    //alert(result.StudentName)
+                    $('#txtNAstudent').text(result.StudentName);
+                    $('#txtEMstudent').text(result.StudentEmail);
+                    $('#txtMostudent').text(result.StudentMobile);
+                    $('#txtBistudet').text(result.StudentDate);
+                    $('#txtADDstudent').text(result.Address); 
+                    $('#txtCIstudent').text(result.City);
+                    $('#txtUSstudent').text(result.UserName);
+                    $('#txtPAstudent').text(result.Password);
+                }
+            });
+        ///}
+    }
+</script>

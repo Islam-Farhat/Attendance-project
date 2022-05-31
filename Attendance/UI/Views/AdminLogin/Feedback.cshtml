@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Feedback";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        @Html.Partial("_StudentandTeacher")
+        @*<div id="show" class="h-100 col-lg-3 col-md-4 text-center p-0 overflow-hidden d-md-block text-white border-right col-sm-12">
+            <nav class="nav navbar-expand-md navbar-light bg-light">
+                <button class="navbar-toggler w-100" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span> Panel
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown2">
+
+                    <div class="row">
+                        <form action="" class="col-12 py-2 shadow-lg text-center w-100 bg-dark px-4">
+                            <h2 class="my-3"><span class="text-danger" style="font-size: 40px;">S</span>tudent <span class="text-danger">l</span>ogin</h2>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Enter name">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="form-group justify-content-center">
+                                <button type="submit" class="btn btn-primary w-100 ">Login</button>
+                            </div>
+                        </form>
+                        <div class="w-100 border-bottom border-primary"></div>
+                        <form action="" class="py-2 col-12 shadow-lg text-center w-100 bg-dark px-4">
+                            <h2 class="my-3"><span class="text-danger" style="font-size: 40px;">S</span>tuff <span class="text-danger">l</span>ogin</h2>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Enter name">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="form-group justify-content-center">
+                                <button type="submit" class="btn btn-primary w-100 ">Login</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- import your sidebar here (sidebar.forms.html,admin.sidebar.html,stuff.sidebar.html) -->
+                    <!-- end of side bar importing -->
+                </div>
+            </nav>
+
+        </div>*@
+        <div class="col-lg-9 col-md-8 col-sm-12 justify-content-center">
+            <div id="content" class="container text-center col-12 overflow-auto">
+
+
+                <form action="" class="my-3 border px-4 py-3 shadow-lg">
+                    <h2 class="my-3"><span class="text-danger" style="font-size: 40px;">F</span>eedback <span class="text-danger">f</span>orm</h2>
+
+
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-25 ">Send</button>
+                </form>
+                <!-- content .... import content here(homepage.html,feedback.html,adminlogin.html and any component)-->
+                <!-- end content -->
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

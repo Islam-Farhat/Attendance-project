@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b11a789f4d764b998a07ada6b42cd0c4" Name="Diagram1">
+        <EntityTypeShape EntityType="AttendanceModel.AdminPanal" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.AttendanceTable" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.Class" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.Level" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.Student" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.TeacherTable" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="AttendanceModel.FK_AttendanceTable_Students" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceModel.FK_AttendanceTable_TeacherTable" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceModel.FK_Students_AttendanceTable" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceModel.FK_Classes_Levels" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceModel.FK_Students_Classes" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceModel.FK_Students_Levels" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceModel.FK_TeacherTable_Levels" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceModel.FK_Students_TeacherTable" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,262 @@
+﻿
+@{
+    ViewBag.Title = "Class";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div id="show" class="h-100 col-lg-3 col-md-4 text-center p-0 overflow-hidden d-md-block text-white border-right col-sm-12">
+            <nav class="nav navbar-expand-md navbar-light bg-light">
+                <button class="navbar-toggler w-100" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span> Panel
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown2">
+
+                    <div class="list-group text-center flex-column w-100 shadow border border-primary">
+                        <h3 class="py-3 alert-primary m-0">Admin panel</h3>
+                        <a href="/AdminLogin/Level" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Add Level </a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Add Class</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Add stuff</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Stuff report</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Complain</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Leave</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Student reports</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Feedback</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Log out</a>
+                    </div>
+                    <!-- import your sidebar here (sidebar.forms.html,admin.sidebar.html,stuff.sidebar.html) -->
+                    <!-- end of side bar importing -->
+                </div>
+            </nav>
+
+        </div>
+        <div class="col-lg-9 col-md-8 col-sm-12 justify-content-center">
+            <div id="content" class="container text-center col-12 overflow-auto">
+
+                <form action="" class="border p-3 col-md-10 col-lg-6 offset-md-1 offset-lg-3 col-sm-12  mt-5 shadow-lg">
+                    <h2 class="my-3 text-center"><span class="text-danger" style="font-size: 40px;">A</span>dd <span class="text-danger">C</span>lass</h2>
+                    <input maxlength="10" class="form-control my-2 text-center justify-content-center" type="text" name="" id="txtNameClass" placeholder="Class name">
+                    <p style="text-align:center;color:#e60000;font-family:Arial;" id="validClassName">Class Name is Required!</p>
+                    <input maxlength="10" class="form-control my-2 text-center justify-content-center" type="number" name="" id="txtClassSeat" placeholder="Seat">
+                    <p style="text-align:center;color:#e60000;font-family:Arial;" id="validSeat">Seat is Required!</p>
+                    <select class="form-control my-2" id="ddlLevel">
+                        @*<option value="0" selected>Choose Level</option>
+            <option value="1">Level 1</option>
+            <option value="2">Level 2</option>
+            <option value="3">Level 3</option>*@
+                    </select>
+                    <p style="text-align:center;color:#e60000;font-family:Arial;" id="validleveldrop">level Name is Required!</p>
+                    <input type="hidden" id="txtClassHide" />
+                    <div class="alert alert-primary text-center" role="alert" id="alertClass">
+                        Record successfully added!
+                    </div>
+                    <button class="btn btn-primary mx-auto w-100" type="button" id="btnAddClass">Add</button>
+                    <button class="btn btn-primary mx-auto w-100" type="button" id="btnUpdateClass">Update</button>
+                    <!-- table to show standards -->
+                    <table class="table my-4 border overflow-hidden">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">Class</th>
+                                <th scope="col" class="text-center">Level</th>
+                                <th scope="col" class="text-center">Seat</th>
+                                <th scope="col" class="text-center">Process</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            @*<!-- row for loop -->
+                <tr>
+                    <td class="py-5 lead border text-center" scope="row">1</td>
+                    <td class="py-5 lead border text-center" scope="row">C</td>
+                    <td class="py-5 lead border text-center">
+                        1st std
+                        <!-- inut show after click edit btn -->
+                        <!-- <input type="text" class="form-control"> -->
+                    </td>
+                    <td class="py-5 lead border text-center" scope="row">59</td>
+                    <td>
+                        <button class="btn btn-primary w-100 my-1 m-0" type="submit">Edit</button>
+                        <button class="btn btn-danger  w-100 my-1 m-0" type="submit">Delete</button>
+                    </td>
+                </tr>*@
+
+                        </tbody>
+                    </table>
+
+                </form>
+                <!-- content .... import content here(homepage.html,feedback.html,adminlogin.html and any component)-->
+                <!-- end content -->
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        Dropdownlist();
+        loadDataClass();
+        $('#validClassName').hide();
+        $('#validSeat').hide();
+        $('#validleveldrop').hide();
+        $('#btnUpdateClass').hide();
+        $('#alertClass').hide();
+        $('#btnAddClass').click(function () {
+            $('#validClassName').hide();
+            $('#validSeat').hide();
+            $('#validleveldrop').hide();
+            AddnewClass();
+        })
+        $('#btnUpdateClass').click(function () {
+            $('#btnUpdateClass').hide();
+            $('#btnAddClass').show();
+            Update();
+        })
+    })
+
+    //load data in dropdownlist
+    function Dropdownlist() {
+        $.ajax({
+            url: "/AdminLogin/Dropdownlist",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html += '<option value=-1>Choice Level</option>'
+                $.each(result, function (key, item) {
+                    html += '<option value=' + item.LevelID + '>';
+                    html += item.LevelName + '</option>';
+                });
+                $('#ddlLevel').html(html);
+            }
+        });
+    }
+    //Load Data function in Table
+    function loadDataClass() {
+        $.ajax({
+            url: "/AdminLogin/GetClass",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                $.each(result, function (key, item) {
+                    html += '<tr>';
+                    html += '<td>' + item.counter + '</td>';
+                    html += '<td>' + item.ClassName + '</td>';
+                    html += '<td>' + item.LevelName + '</td>';
+                    html += '<td>' + item.Seat + '</td>';
+                    html += '<td><a href="javascript:void(0);" onclick=UpdateUser(' + item.ClassID + '); return false;' + '<i class="fa fa-edit" style="font-size: x-large;color: #0066ff;"></i></a>&nbsp;' +
+                        // '<td><a href="/Department/Edit?id=' + item.LevelID + '"><i class="fa fa-edit" style="font-size: x-large;color: #ffd633;"></i></a>&nbsp;' +
+                        //'<a href="/Department/Details?id=' + item.DeptID + '"><i class="fa fa-eye" style="font-size: x-large;color: #ffd633;"></i></a>&nbsp;' +
+                        '<a href="javascript:void(0);" onclick=Delete(' + item.ClassID + '); return false;>' + '<i class="fa fa-trash" style="font-size: x-large;color: #e62e00;"></i></a>&nbsp;' + '</td>'
+                    html += '</tr>';
+                });
+                $('#tbody').html(html);
+            }
+        });
+    }
+    //Save data in Table 
+    function AddnewClass() {
+        var name = $('#txtNameClass').val();
+        var seat = $('#txtClassSeat').val();
+        var level = $('#ddlLevel').val();
+        if (name == "" || name == undefined) {
+            $('#validClassName').slideDown();
+        }
+        else if (seat == "" || seat == undefined) {
+            $('#validSeat').slideDown();
+        }
+        else if (level == -1 || level == undefined) {
+            $('#validleveldrop').slideDown();
+        }
+        else {
+            $.ajax({
+                url: "/AdminLogin/CreatClass?ClassName=" + name + "&Seat=" + seat + "&LevelID=" + level,
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+
+                    if (result == "Success") {
+                        loadDataClass();
+                        $('#alertClass').slideDown(2000).delay(2000).slideUp(2000);
+                        ClearData();
+                    }
+                    else {
+                        alert("Error in Save!")
+                    }
+                }
+            });
+        }
+        
+    }
+    // Update Data in Table
+    function UpdateUser(id) {
+        $('#txtClassHide').val(id);
+        $('#btnAddClass').hide();
+        $('#btnUpdateClass').show();
+        $.ajax({
+            url: "/AdminLogin/GetByClassID?id=" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                $('#txtNameClass').val(result.ClassName);
+                $('#txtClassSeat').val(result.Seat);
+                $('#ddlLevel').val(result.LevelID);
+
+            }
+        });
+    }
+
+    function Update() {
+        var name = $('#txtNameClass').val();
+        var seat = $('#txtClassSeat').val();
+        var level = $('#ddlLevel').val();
+        var id = $('#txtClassHide').val();
+        $.ajax({
+            url: "/AdminLogin/EditClass?ClassName=" + name + "&LevelID=" + level + "&Seat=" + seat + "&ClassID="+id,
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result == "Success") {
+                    ClearData();
+                    loadDataClass();
+                }
+                else {
+                    alert('Something Error!');
+                }
+            }
+        });
+    }
+    //Delete data in Table
+    function Delete(id) {
+        var dlt = confirm("Are you sure.?! ");
+        if (dlt) {
+            $.ajax({
+                url: "/AdminLogin/DeleteClass?id=" + id,
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    loadDataClass();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+
+        }
+    }
+    //Clear data
+    function ClearData() {
+         $('#txtNameClass').val('');
+         $('#txtClassSeat').val('');
+         $('#ddlLevel').val(-1);
+    }
+</script>

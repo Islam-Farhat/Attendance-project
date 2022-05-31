@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "TeacherProfile";
+}
+
+
+ 
+
+    <div class="container-fluid">
+        <div class="row">
+            <div id="show" class="h-100 col-lg-3 col-md-4 text-center p-0 overflow-hidden d-md-block text-white border-right col-sm-12">
+                <nav class="nav navbar-expand-md navbar-light bg-light">
+                    <button class="navbar-toggler w-100" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span> Panel
+                    </button>
+                    @Html.Partial("_SideBarTeacherPanal")
+                </nav>
+
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12 justify-content-center">
+                <div id="content" class="container text-center col-12 overflow-auto">
+                    <!-- content .... import content here(homepage.html,feedback.html,adminlogin.html and any component)-->
+                    <!-- end content -->
+                    
+                    <div class="row my-5 border border-danger p-4 shadow-lg col-lg-8 offset-lg-2">
+                        <h2 class=" col-12 my-4 text-danger">My profile</h2>
+                        <div style="text-align:center" class="alert alert-primary text-center" role="alert" id="alertTEACHER">
+                            Record successfully Updated!
+                        </div><br />
+                        <div class="col-md-6 my-2"><input class="form-control" type="email" value="" name="" placeholder="Email" id="teacheremaildital"></div>
+                        <div class="col-md-6 my-2"><input class="form-control" type="number" value="" name="" placeholder="Mobile" id="teachermobiledital"></div>
+                        <div class="col-md-6 my-2"><input class="form-control" type="text" value="" name="" placeholder="Address" id="teacheraddressdital"></div>
+                        <div class="col-md-6 my-2"><input class="form-control" type="text" value="" name="" placeholder="City" id="teachercitydital"></div>
+                        <!--<div class="col-md-6 my-2"><input class="form-control" type="number" value="" name="" placeholder="Pincode"></div>-->
+                        <div class="col-md-6 my-2 text-left">Photo:<input class="form-control-file" title="Pic" type="file" value="" name="" placeholder="Photo" id="txtTeacherPhoto"></div>
+                        <div class="col-12 my-2"><input type="button" class="btn btn-primary w-25" value="Update" id="txtUpdateTeacher"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            UpdateTeacher();
+            $('#alertTEACHER').hide();
+            $('#txtUpdateTeacher').click(function () {
+                Update();
+                Add();
+            })
+        })
+
+        // Update Data in Table
+        function UpdateTeacher() {
+            var id = $('#hdnTeacherID').val();
+            $.ajax({
+                url: "/AdminLogin/GetByTeacheeID?id=" + id,
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#teacheremaildital').val(result.Email);
+                    $('#teachermobiledital').val(result.Mobile);
+                    $('#teacheraddressdital').val(result.Address);
+                    $('#teachercitydital').val(result.City);
+                    $('#1').text(result.TeacherName);
+                    $('#txtTeacherPhoto').val(result.FileName);
+                    
+
+                }
+            });
+        }
+
+        function Update() {
+            var email = $('#teacheremaildital').val();
+            var mobie = $('#teachermobiledital').val();
+            var address = $('#teacheraddressdital').val();
+            var city = $('#teachercitydital').val();
+            var photo = $('#txtTeacherPhoto').val();
+            $.ajax({
+                url: "/AdminLogin/EditTeacher?Email=" + email + "&Mobile=" + mobie + "&Address=" + address + "&City=" + city + "&FileName=" + photo,
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == "Success") {
+                        ClearData();
+                        $('#alertTEACHER').slideDown(2000).delay(2000).slideUp(2000);
+                    }
+                    else {
+                        alert('Something Error!');
+                    }
+                }
+            });
+        }
+        //Clear data
+        function ClearData() {
+            $('#teacheremaildital').val("");
+            $('#teachermobiledital').val("");
+            $('#teacheraddressdital').val("");
+            $('#teachercitydital').val("");
+            $('#txtTeacherPhoto').val("");
+        }
+
+        //upload file
+        function Add() {
+            if (window.FormData == undefined)
+                alert("Error: FormData is undefined");
+
+            else {
+                var fileUpload = $("#txtTeacherPhoto").get(0);
+                var files = fileUpload.files;
+
+                var fileData = new FormData();
+
+                fileData.append(files[0].name, files[0]);
+
+                $.ajax({
+                    url: '/AdminLogin/uploadFile',
+                    type: 'post',
+                    datatype: 'json',
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    data: fileData,
+                    success: function (response) {
+                        //alert(response);
+                    }
+                });
+            }
+
+        }
+    </script>

@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "TeacherReport";
+}
+ 
+<div class="container-fluid">
+    <div class="row"> 
+        <div id="show" class="h-100 col-lg-3 col-md-4 text-center p-0 overflow-hidden d-md-block text-white border-right col-sm-12">
+            <nav class="nav navbar-expand-md navbar-light bg-light">
+                <button class="navbar-toggler w-100" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span> Panel
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown2">
+
+                    <div class="list-group text-center flex-column w-100 shadow border border-primary">
+                        <h3 class="py-3 alert-primary m-0">Admin panel</h3>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Add Level </a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Add Class</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Add Teacher</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Teacher report</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Complain</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Leave</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Student reports</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Feedback</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Log out</a>
+                    </div>
+                    <!-- import your sidebar here (sidebar.forms.html,admin.sidebar.html,stuff.sidebar.html) -->
+                    <!-- end of side bar importing -->
+                </div>
+            </nav>
+
+        </div>
+        <div class="col-lg-9 col-md-8 col-sm-12 justify-content-center">
+            <div id="content" class="container text-center col-12 overflow-auto">
+
+
+                <!-- table to show Stuff -->
+                <table class="table my-4 border overflow-hidden shadow-lg">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Photo</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mobile</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Process</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableTeacher"></tbody>
+                </table>
+                <!-- content .... import content here(homepage.html,feedback.html,adminlogin.html and any component)-->
+                <!-- end content -->
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        loadDataTeacher();
+    })
+    //Load Data function in Table
+    function loadDataTeacher() {
+        $.ajax({
+            url: "/AdminLogin/GetTeacher",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                $.each(result, function (key, item) {
+                    html += '<tr>';
+                    html += '<td><img style="width:40px;height:40px;" src="/Files/' + item.FileName + '"class="rounded-circle" alt="Cinque Terre"/></td>';
+                    html += '<td>' + item.TeacherName + '</td>';
+                    html += '<td>' + item.Email + '</td>';
+                    html += '<td>' + item.Mobile + '</td>';
+                    html += '<td>' + item.City + '</td>';
+                    html += '<td>'/*<a href="/AdminLogin/Teacher" onclick=UpdateUser(' + item.TeacherID + '); return false;' + '<i class="fa fa-edit" style="font-size: x-large;color: #0066ff;"></i></a>&nbsp;' +*/
+                        // '<td><a href="/Department/Edit?id=' + item.LevelID + '"><i class="fa fa-edit" style="font-size: x-large;color: #ffd633;"></i></a>&nbsp;' +
+                        //'<a href="/Department/Details?id=' + item.DeptID + '"><i class="fa fa-eye" style="font-size: x-large;color: #ffd633;"></i></a>&nbsp;' +
+                        +'<a href="javascript:void(0);" onclick=Delete(' + item.TeacherID + '); return false;>' + '<i class="fa fa-trash" style="font-size: x-large;color: #e62e00;"></i></a>&nbsp;' + '</td>'
+                    html += '</tr>';
+                });
+                $('#tableTeacher').html(html);
+            }
+        });
+    }
+
+    // Update Data in Table
+    function UpdateUser(id) {
+        //$('#hdnID').val(id);
+        //$('#btnSave').hide();
+        //$('#btnUpdate').show();
+        $.ajax({
+            url: "/AdminLogin/GetByTeacherID?id=" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                alert("Success")
+                $('#txtNameTeacher').val(result.TeacherName);
+                $('#txtEmailTeacher').val(result.Email);
+                $('#txtMobileTeacher').val(result.Mobile);
+                $('#txtAddressTeacher').val(result.Address);
+                $('#txtCityTeacher').val(result.City);
+                $('#ddlGenderTeacher').val(result.Gender);
+                $('#exampleFormControlFile1').val(result.FileName);
+                $('#ddlTeacher').val(result.LevelID);
+                $('#txtUsernameTeacher').val(result.Username);
+                $('#txtPasswordTeacher').val(result.Password);
+
+            }
+        });
+    }
+
+    //Delete data in Table
+    function Delete(id) {
+        var dlt = confirm("Are you sure.?! ");
+        if (dlt) {
+            $.ajax({
+                url: "/AdminLogin/DeleteTeacher?id=" + id,
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    loadDataTeacher();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+
+        }
+    }
+</script>

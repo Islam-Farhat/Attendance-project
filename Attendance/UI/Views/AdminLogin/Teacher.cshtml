@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "Teacher";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div id="show" class="h-100 col-lg-3 col-md-4 text-center p-0 overflow-hidden d-md-block text-white border-right col-sm-12">
+            <nav class="nav navbar-expand-md navbar-light bg-light">
+                <button class="navbar-toggler w-100" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span> Panel
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown2">
+
+                    <div class="list-group text-center flex-column w-100 shadow border border-primary">
+                        <h3 class="py-3 alert-primary m-0">Admin panel</h3>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Add Level </a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Add Class</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Add Teacher</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Stuff report</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Complain</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Leave</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Student reports</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Feedback</a>
+                        <a href="#" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list">Log out</a>
+                    </div>
+                    <!-- import your sidebar here (sidebar.forms.html,admin.sidebar.html,stuff.sidebar.html) -->
+                    <!-- end of side bar importing -->
+                </div>
+            </nav>
+
+        </div>
+        <div class="col-lg-9 col-md-8 col-sm-12 justify-content-center">
+            <div id="content" class="container text-center col-12 overflow-auto">
+
+
+
+                <form action="" class="shadow-lg border p-3 col-md-10 col-lg-6 offset-md-1 offset-lg-3 col-sm-12  mt-5" style="margin-bottom: 10%;">
+                    <h2 class="my-3 text-center"><span class="text-danger" style="font-size: 40px;">A</span>dd <span class="text-danger">T</span>eacher</h2>
+                    <div>
+                        <input maxlength="20" class="form-control my-2  justify-content-center" type="text" name="" id="txtNameTeacher" placeholder="Teacher name">
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validteachername">Teacher Name is Required!</p>
+                        <input maxlength="20" class="form-control my-2  justify-content-center" type="email" name="" id="txtEmailTeacher" placeholder="Email">
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validteacheremail">Email is Required!</p>
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validinvaliedemail">Invalied Email!</p>
+                        <input maxlength="20" class="form-control my-2  justify-content-center" type="number" name="" id="txtMobileTeacher" placeholder="Mobile">
+
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validlteachermobile">Mobile is Required!</p>
+
+                        <textarea class="form-control " name="" id="txtAddressTeacher" cols="30" rows="2" placeholder="Address"></textarea>
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validteacheraddress">Address is Required!</p>
+                        <input maxlength="20" class="form-control my-2  justify-content-center" type="text" name="" id="txtCityTeacher" placeholder="City">
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validteachercity">City is Required!</p>
+                        <select class="form-control my-2" id="ddlGenderTeacher">
+                            <option value="0" selected>Gender</option>
+
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                        </select>
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validteachergender">Gender is Required!</p>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1" id="txtPhotoTeacher">Photo</label>
+                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                            <p style="text-align:center;color:#e60000;font-family:Arial;" id="validteacherphoto">Photo is Required!</p>
+                        </div>
+                        <select class="form-control my-2" id="ddlTeacher"></select>
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validteacherlevel">Name level is Required!</p>
+                        <input maxlength="20" class="form-control my-2  justify-content-center" type="text" name="" id="txtUsernameTeacher" placeholder="Username">
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validteacherusername">Username is Required!</p>
+                        <input maxlength="20" class="form-control my-2  justify-content-center" type="password" name="" id="txtPasswordTeacher" placeholder="Password">
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validteacherpassword">Password is Required!</p>
+                        <input maxlength="20" class="form-control my-2  justify-content-center" type="password" name="" id="txtConfirmPasswordTeacher" placeholder="Confirm password">
+                        <p style="text-align:center;color:#e60000;font-family:Arial;" id="validconfirmpassword">Confirm Password is Worng!</p>
+
+                    </div>
+
+                    <div class="alert alert-primary text-center" role="alert" id="alertteacher">
+                        Record successfully added!
+                    </div>
+                    <button class="btn btn-primary mx-auto w-100" type="button" id="btnTeacherAdd">Add</button>
+
+
+                </form>
+                <!-- content .... import content here(homepage.html,feedback.html,adminlogin.html and any component)-->
+                <!-- end content -->
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        Dropdownlist();
+        $('#alertteacher').hide();
+        $('#validteachername').hide();
+        $('#validteacheremail').hide();
+        $('#validlteachermobile').hide();
+        $('#validteacheraddress').hide();
+        $('#validteachercity').hide();
+        $('#validteachergender').hide();
+        $('#validteacherphoto').hide();
+        $('#validteacherlevel').hide();
+        $('#validteacherusername').hide();
+        $('#validteacherpassword').hide();
+        $('#validconfirmpassword').hide();
+        $('#validinvaliedemail').hide();
+        $('#btnTeacherAdd').click(function () {
+            $('#validteachername').hide();
+            $('#validteacheremail').hide();
+            $('#validlteachermobile').hide();
+            $('#validteacheraddress').hide();
+            $('#validteachercity').hide();
+            $('#validteachergender').hide();
+            $('#validteacherphoto').hide();
+            $('#validteacherlevel').hide();
+            $('#validteacherusername').hide();
+            $('#validteacherpassword').hide();
+            $('#validconfirmpassword').hide();
+            $('#validinvaliedemail').hide();
+            AddnewTeacher();
+            Add();
+        })
+    })
+    //load data in dropdownlist
+    function Dropdownlist() {
+        $.ajax({
+            url: "/AdminLogin/DropdownlistTeacher",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html += '<option value=-1>Chose Level</option>'
+                $.each(result, function (key, item) {
+                    html += '<option value=' + item.LevelID + '>';
+                    html += item.LevelName + '</option>';
+                });
+                $('#ddlTeacher').html(html);
+            }
+        });
+    }
+    //Save data in Table
+    function AddnewTeacher() {
+        var name = $('#txtNameTeacher').val();
+        var email = $('#txtEmailTeacher').val();
+        var mobile = $('#txtMobileTeacher').val();
+        var address = $('#txtAddressTeacher').val();
+        var city = $('#txtCityTeacher').val();
+        var ddlgender = $('#ddlGenderTeacher').val();
+        var photo = $('#exampleFormControlFile1').val();
+        var ddlteacher = $('#ddlTeacher').val();
+        var username = $('#txtUsernameTeacher').val();
+        var password = $('#txtPasswordTeacher').val();
+        var confirm = $('#txtConfirmPasswordTeacher').val();
+        if (name == "" || name == undefined) {
+            $('#validteachername').show();
+        }
+        else if (email == "" || email == undefined) {
+            $('#validteacheremail').show();
+        }
+        else if (mobile == "" || mobile == undefined) {
+            $('#validlteachermobile').show();
+        }
+        else if (address == "" || address == undefined) {
+            $('#validteacheraddress').show();
+        }
+        else if (city == "" || city == undefined) {
+            $('#validteachercity').show();
+        }
+        else if (ddlgender == -1 || ddlgender == undefined) {
+            $('#validteachergender');
+        }
+        else if (ddlteacher == -1 || ddlteacher == undefined) {
+            $('#validteacherlevel');
+        }
+        else if (username == "" || username == undefined) {
+            $('#validteacherusername');
+        }
+        else if (password == "" || password == undefined) {
+            $('#validteacherpassword');
+        }
+        else if (confirm != password || confirm == undefined || confirm == "") {
+            $('#validconfirmpassword').show();
+        }
+        else {
+            $.ajax({
+                url: "/AdminLogin/CreatTeacher?TeacherName=" + name + "&Email=" + email + "&Mobile=" + mobile + "&Address=" + address + "&City=" + city + "&Gender=" + ddlgender + "&FileName=" + photo + "&LevelID=" + ddlteacher + "&Username=" + username + "&Password=" + password,
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+
+                    // else {
+                    if (result == "Success") {
+                        window.location = "/AdminLogin/TeacherReport";
+                        $('#alertteacher').slideDown(2000).delay(2000).slideUp(2000);
+                        ClearData();
+                    }
+                    else {
+                        $('#validinvaliedemail').slideDown(500);
+                    }
+                    //  }
+
+                }
+            });
+        }
+        
+    }
+    //Clear Data in textbox
+    function ClearData() {
+        $('#txtNameTeacher').val("");
+        $('#txtEmailTeacher').val("");
+        $('#txtMobileTeacher').val("");
+        $('#txtAddressTeacher').val("");
+        $('#txtCityTeacher').val("");
+        $('#ddlGenderTeacher').val(-1);
+        $('#exampleFormControlFile1').val("");
+        $('#ddlTeacher').val(-1);
+        $('#txtUsernameTeacher').val("");
+        $('#txtPasswordTeacher').val("");
+        $('#txtConfirmPasswordTeacher').val("");
+    }
+
+    //upload file
+    function Add() {
+        if (window.FormData == undefined)
+            alert("Error: FormData is undefined");
+
+        else {
+            var fileUpload = $("#exampleFormControlFile1").get(0);
+            var files = fileUpload.files;
+
+            var fileData = new FormData();
+
+            fileData.append(files[0].name, files[0]);
+
+            $.ajax({
+                url: '/AdminLogin/uploadFile',
+                type: 'post',
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: fileData,
+                success: function (response) {
+                    // alert(response);
+                }
+            });
+        }
+
+    }
+
+</script>
